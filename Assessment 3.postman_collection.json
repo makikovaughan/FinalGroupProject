@@ -1,0 +1,526 @@
+{
+	"info": {
+		"_postman_id": "a61ca2f1-c97c-4932-8180-cd0b5f6bd827",
+		"name": "Assessment 3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25427513"
+	},
+	"item": [{
+			"name": "POST /users/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"cousingreg\",\n    \"password\": \"mosteligiblebachelor\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /users/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"profile\":{\n    \"firstName\": \"Alex\",\n    \"lastName\": \"Miller\",\n    \"email\" : \"alex@mail.com\",\n    \"phone\" : \"9999999999\"\n    },\n    \"credentials\":{\n        \"username\" : \"alex@mail.com\",\n        \"password\" : \"password\"\n    }\n\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /company/id/users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/company/6/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"company",
+						"6",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /company/id/announcements",
+			"event": [{
+				"listen": "test",
+				"script": {
+					"exec": [
+						"pm.test('Status OK', () => {\r",
+						"    pm.response.to.be.status(200)\r",
+						"})\r",
+						"\r",
+						"pm.test('Should contain two values', () => {\r",
+						"    pm.expect(pm.response.json().length).to.eql(3)\r",
+						"})"
+					],
+					"type": "text/javascript"
+				}
+			}],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/company/6/announcements",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"company",
+						"6",
+						"announcements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /company/id/teams",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/company/6/teams",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"company",
+						"6",
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /company/companyId/teams/teamId/projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/company/6/teams/11/projects",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"company",
+						"6",
+						"teams",
+						"11",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /announcements",
+			"event": [{
+				"listen": "test",
+				"script": {
+					"exec": [
+						"pm.test('Status Created', () => {\r",
+						"    pm.response.to.be.status(201)\r",
+						"})"
+					],
+					"type": "text/javascript"
+				}
+			}],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"title\": \"Completely new test\",\r\n        \"message\": \"A new announcement was successfully posted through the api!\",\r\n        \"author\": {\r\n            \"id\": 26,\r\n            \"profile\": {\r\n                \"firstName\": \"Gerri\",\r\n                \"lastName\": \"Kellman\",\r\n                \"email\": \"gkellman@email.com\",\r\n                \"phone\": \"(888) 888-8888\"\r\n            },\r\n            \"admin\": true,\r\n            \"active\": true,\r\n            \"status\": \"PENDING\"\r\n        }\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/announcements",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"announcements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /announcements Invalid User",
+			"event": [{
+				"listen": "test",
+				"script": {
+					"exec": [
+						"pm.test('Status Created', () => {\r",
+						"    pm.response.to.be.status(404)\r",
+						"})"
+					],
+					"type": "text/javascript"
+				}
+			}],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"title\": \"INVALID\",\r\n        \"message\": \"This should not be visible in the database.\",\r\n        \"author\": {\r\n            \"id\": 999,\r\n            \"profile\": {\r\n                \"firstName\": \"invalid\",\r\n                \"lastName\": \"user\",\r\n                \"email\": \"fake@email.com\",\r\n                \"phone\": \"(888) 888-8888\"\r\n            },\r\n            \"admin\": false,\r\n            \"active\": true,\r\n            \"status\": \"PENDING\"\r\n        }\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/announcements",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"announcements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/projects",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /projects/active",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/projects/active",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"active"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /projects/team/id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/projects/team/17",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"team",
+						"17"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /projects/create-project",
+			"request": {
+				"method": "POST",
+				"header": [{
+					"key": "Content-Type",
+					"value": "application/json",
+					"type": "JSON"
+				}],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"New Angular Content\",\n\t\"description\": \"New Angular video content and assignments are on the way!\",\n\t\"active\": true,\n\t\"teamId\": 11\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/projects/create-project",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"create-project"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH /projects/update-project/projectId",
+			"request": {
+				"method": "PATCH",
+				"header": [{
+					"key": "Content-Type",
+					"value": "application/json",
+					"type": "JSON"
+				}],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"New Angular Content\",\n\t\"description\": \"New Angular video content and assignments are on the way!\",\n\t\"active\": true\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/projects/update-project/8",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"update-project",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Team",
+			"event": [{
+				"listen": "test",
+				"script": {
+					"exec": [
+						"pm.test('Status OK', () => {\r",
+						"    pm.response.to.be.status(200)\r",
+						"})"
+					],
+					"type": "text/javascript"
+				}
+			}],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"test\",\r\n    \"description\": \"Test description\",\r\n    \"company\": {\r\n        \"id\": \"7\"\r\n    },\r\n    \"teammates\":[\r\n        {\r\n            \"id\": \"18\"\r\n        },\r\n        {\r\n            \"id\": \"19\"\r\n        },\r\n        {\r\n            \"id\": \"20\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/team",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"team"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users companies",
+			"event": [{
+				"listen": "test",
+				"script": {
+					"exec": [
+						"pm.test('Status OK', () => {\r",
+						"    pm.response.to.be.status(200)\r",
+						"})\r",
+						"\r",
+						"pm.test('Should return a set with 3 items', () => {\r",
+						"    pm.expect(pm.response.json().length).to.eql(3)\r",
+						"})"
+					],
+					"type": "text/javascript"
+				}
+			}],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/team/user/18",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"team",
+						"user",
+						"18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/team/11/project/num",
+			"event": [{
+				"listen": "test",
+				"script": {
+					"exec": [
+						"pm.test('Status OK', () => {\r",
+						"    pm.response.to.be.status(200)\r",
+						"})\r",
+						"\r",
+						"pm.test('Value should be 1', () => {\r",
+						"    pm.expect(pm.response.json()).to.eql(2)\r",
+						"})"
+					],
+					"type": "text/javascript"
+				}
+			}],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/team/11/project/num",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"team",
+						"11",
+						"project",
+						"num"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/team/12",
+			"event": [{
+				"listen": "test",
+				"script": {
+					"exec": [
+						"pm.test('Status OK', () => {\r",
+						"    pm.response.to.be.status(200)\r",
+						"})\r",
+						""
+					],
+					"type": "text/javascript"
+				}
+			}],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/team/12",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"team",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/team",
+			"event": [{
+				"listen": "test",
+				"script": {
+					"exec": [
+						"pm.test('Status OK', () => {\r",
+						"    pm.response.to.be.status(200)\r",
+						"})\r",
+						"\r",
+						"pm.test('Should return a set with 8 items', () => {\r",
+						"    pm.expect(pm.response.json().length).to.eql(8)\r",
+						"})"
+					],
+					"type": "text/javascript"
+				}
+			}],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/team",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"team",
+						"users",
+						"29",
+						"companies"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
